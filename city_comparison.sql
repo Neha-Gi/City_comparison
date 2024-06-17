@@ -1,0 +1,67 @@
+
+DROP DATABASE IF EXISTS city_comparison;
+CREATE DATABASE city_comparison;
+\c city_comparison ; 
+
+CREATE TABLE city_comparison (
+    city_id SERIAL PRIMARY KEY,
+    Year VARCHAR(10) NOT NULL,
+    City_name VARCHAR(20) NOT NULL,
+    Cost_of_Living_Monthly NUMERIC(10, 2) CHECK (Cost_of_Living_Monthly > 0),
+    Average_Monthly_Salary_Net NUMERIC(10, 2) CHECK (Average_Monthly_Salary_Net > 0),
+    Education_Quality_percent NUMERIC(5, 2) CHECK (Education_Quality_percent BETWEEN 0 AND 100),
+    Safety_percent NUMERIC(5, 2) CHECK (Safety_percent BETWEEN 0 AND 100),
+    Public_Transport_Monthly_Pass NUMERIC(10, 2) CHECK (Public_Transport_Monthly_Pass >= 0),
+    Weather JSONB NOT NULL
+);
+
+INSERT INTO city_comparison (Year, City_name, Cost_of_Living_Monthly, Average_Monthly_Salary_Net, Education_Quality_percent, Safety_percent, Public_Transport_Monthly_Pass, Weather)
+VALUES 
+    ('2000', 'Pune', 50, 200, 80, 85, 50, '{"min": 20, "max": 36}'),
+    ('2000', 'Berlin', 750, 1300, 87, 91, 72, '{"min": -5, "max": 35}'),
+    ('2001', 'Pune', 60, 220, 81, 86, 54, '{"min": 22, "max": 36}'),
+    ('2001', 'Berlin', 850, 1400, 91, 93, 75, '{"min": -3, "max": 30}'),
+    ('2002', 'Pune', 70, 240, 81.5, 86.5, 56, '{"min": 24, "max": 37}'),
+    ('2002', 'Berlin', 900, 1500, 88, 92, 75, '{"min": -4, "max": 35}'),
+    ('2003', 'Pune', 85, 260, 82, 87, 62, '{"min": 18, "max": 37}'),
+    ('2003', 'Berlin', 950, 1600, 92, 94, 78, '{"min": -5, "max": 33}'),
+    ('2004', 'Pune', 95, 280, 82.1, 87.5, 65, '{"min": 16, "max": 36}'),
+    ('2004', 'Berlin', 1000, 1700, 96, 96, 82, '{"min": -6, "max": 30}'),
+    ('2005', 'Pune', 120, 300, 82.6, 87.8, 70, '{"min": 18, "max": 36}'),
+    ('2005', 'Berlin', 1150, 1800, 94, 95, 82, '{"min": -3, "max": 29}'),
+    ('2006', 'Pune', 130, 320, 83.2, 88.2, 74, '{"min": 16, "max": 37}'),
+    ('2006', 'Berlin', 1200, 1900, 100, 98, 88, '{"min": -6, "max": 27}'),
+    ('2007', 'Pune', 140, 340, 84.4, 88.4, 78, '{"min": 14, "max": 37}'),
+    ('2007', 'Berlin', 1250, 2000, 88, 92, 75, '{"min": -4, "max": 29}'),
+    ('2008', 'Pune', 155, 360, 83.6, 89.2, 77, '{"min": 16, "max": 38}'),
+    ('2008', 'Berlin', 1300, 2100, 99, 97, 79, '{"min": -5, "max": 30}'),
+    ('2009', 'Pune', 165, 380, 83.9, 89.6, 81, '{"min": 14, "max": 39}'),
+    ('2009', 'Berlin', 1350, 2200, 98, 97, 83, '{"min": -6, "max": 28}'),
+    ('2010', 'Pune', 180, 400, 83.4, 89, 80, '{"min": 16, "max": 38}'),
+    ('2010', 'Berlin', 1400, 2300, 99, 97, 82, '{"min": -5, "max": 30}'),
+    ('2011', 'Pune', 190, 420, 84, 90, 84, '{"min": 14, "max": 39}'),
+    ('2011', 'Berlin', 1450, 2400, 98, 97, 86, '{"min": -6, "max": 28}'),
+    ('2012', 'Pune', 200, 440, 84.2, 90.4, 86, '{"min": 13, "max": 38}'),
+    ('2012', 'Berlin', 1500, 2500, 98, 97, 88, '{"min": -6, "max": 28}'),
+    ('2013', 'Pune', 210, 460, 85, 91.2, 88, '{"min": 13, "max": 38}'),
+    ('2013', 'Berlin', 1525, 2600, 98, 97, 90, '{"min": -5, "max": 28}'),
+    ('2014', 'Pune', 220, 480, 84.3, 91.3, 90, '{"min": 13, "max": 38}'),
+    ('2014', 'Berlin', 1550, 2700, 98, 97, 92, '{"min": -4, "max": 28}'),
+    ('2015', 'Pune', 230, 500, 85.6, 91, 92, '{"min": 13, "max": 38}'),
+    ('2015', 'Berlin', 1575, 2800, 98, 97, 94, '{"min": -3, "max": 28}'),
+    ('2016', 'Pune', 240, 520, 85.2, 90.2, 94, '{"min": 13, "max": 38}'),
+    ('2016', 'Berlin', 1600, 2850, 98, 97, 96, '{"min": -2, "max": 28}'),
+    ('2017', 'Pune', 250, 540, 85, 92, 96, '{"min": 13, "max": 38}'),
+    ('2017', 'Berlin', 1625, 3000, 98, 97, 98, '{"min": -1, "max": 28}'),
+    ('2018', 'Pune', 260, 560, 86, 92.5, 98, '{"min": 13, "max": 38}'),
+    ('2018', 'Berlin', 1650, 3050, 98, 97, 100, '{"min": -1, "max": 28}'),
+    ('2019', 'Pune', 270, 580, 86.5, 93, 100, '{"min": 13, "max": 38}'),
+    ('2019', 'Berlin', 1675, 3100, 98, 97, 102, '{"min": -2, "max": 28}'),
+    ('2020', 'Pune', 280, 600, 87, 93.4, 102, '{"min": 13, "max": 38}'),
+    ('2020', 'Berlin', 1700, 3150, 98, 97, 104, '{"min": -2, "max": 28}'),
+    ('2021', 'Pune', 290, 620, 87.3, 92, 104, '{"min": 13, "max": 38}'),
+    ('2021', 'Berlin', 1750, 3200, 98, 97, 106, '{"min": -3, "max": 28}'),
+    ('2022', 'Pune', 300, 640, 87.2, 91, 106, '{"min": 13, "max": 39}'),
+    ('2022', 'Berlin', 1775, 3250, 98, 97, 108, '{"min": -3, "max": 28}'),
+    ('2023', 'Pune', 310, 660, 87.4, 92.2, 108, '{"min": 13, "max": 39}'),
+    ('2023', 'Berlin', 1800, 3300, 92, 93, 110, '{"min": -4, "max": 28}');
